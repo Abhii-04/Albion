@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3efe3" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Caerleon Profit Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Caerleon Profit Desk home">
+          <span class="brand-mark">C</span>
+          <span>
+            <strong>CAERLEON</strong>
+            <small>PROFIT DESK</small>
+          </span>
+        </a>
+        <div class="topbar-meta">
+          <span class="live-dot"><i></i> Live market API</span>
+          <span>Asia server</span>
+          <span id="savedLabel">Saved locally</span>
+        </div>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">T4–T8 LIVE MARKET SCANNER</p>
+          <h1>Know the margin<br />before the road.</h1>
+          <p class="lede">Choose any combination of T4 through T8, scan non-artifact equipment across every royal city, and rank opportunities by profit, ROI, or market price.</p>
+          <div class="hero-actions">
+            <button class="primary-button" id="scanLiveTop">Scan live prices</button>
+            <a class="quiet-button button-link" id="openManual" href="#manualPlanner">Manual craft calculator</a>
+          </div>
+        </div>
+
+        <div class="summary-panel" aria-label="Portfolio summary">
+          <div class="summary-label">
+            <span id="bestRankLabel">Best profit per item</span>
+            <span class="rank-pill">#1</span>
+          </div>
+          <h2 id="bestName">Ready to scan</h2>
+          <div class="best-method" id="bestMethod">Asia · non-artifact · T4–T8</div>
+          <div class="summary-grid">
+            <div><small>PROFIT / ITEM</small><strong id="bestProfit">0</strong></div>
+            <div><small>ROI</small><strong id="bestRoi">0%</strong></div>
+            <div><small>COST / ITEM</small><strong id="bestCapital">0</strong></div>
+          </div>
+          <div class="budget-meter">
+            <div class="meter-copy"><span>Budget used</span><strong id="budgetUsed">0%</strong></div>
+            <div class="meter-track"><i id="budgetBar"></i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-labelledby="workspaceTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LIVE INPUTS</p>
+            <h2 id="workspaceTitle">Find the best Black Market flips</h2>
+          </div>
+          <p>Prices come from the community-powered Albion Online Data Project. Every result shows data age so stale orders are easy to avoid.</p>
+        </div>
+
+        <div class="global-controls">
+          <label>
+            <span>Available silver</span>
+            <div class="input-with-affix"><input id="availableSilver" type="number" min="0" step="1000" value="500000" /><b>silver</b></div>
+          </label>
+          <label>
+            <span>Black Market tax</span>
+            <div class="input-with-affix"><input id="saleTax" type="number" min="0" max="99" step="0.1" value="6.5" /><b>%</b></div>
+          </label>
+          <label>
+            <span>Risk reserve</span>
+            <div class="input-with-affix"><input id="riskReserve" type="number" min="0" max="99" step="0.1" value="2" /><b>%</b></div>
+          </label>
+          <label>
+            <span>Destination</span>
+            <select id="destinationCity"><option selected>Caerleon Black Market</option></select>
+          </label>
+        </div>
+
+        <div class="scanner-panel">
+          <div class="scanner-controls">
+            <fieldset class="tier-selector">
+              <legend>Tiers</legend>
+              <label><input id="scanTier4" type="checkbox" checked /><span>T4</span></label>
+              <label><input id="scanTier5" type="checkbox" checked /><span>T5</span></label>
+              <label><input id="scanTier6" type="checkbox" /><span>T6</span></label>
+              <label><input id="scanTier7" type="checkbox" /><span>T7</span></label>
+              <label><input id="scanTier8" type="checkbox" /><span>T8</span></label>
+            </fieldset>
+            <label><span>Enchantment</span><select id="scanEnchant"><option value="all">All .0–.3</option><option value="0">.0</option><option value="1">.1</option><option value="2">.2</option><option value="3">.3</option></select></label>
+            <label><span>Category</span><select id="scanCategory"><option value="all">All equipment</option><option value="Armor">Armor</option><option value="Weapon">Weapons</option><option value="Off-hand">Off-hands</option><option value="Bag & Cape">Bags & capes</option></select></label>
+            <label><span>Max units / item</span><input id="scanMaxUnits" type="number" min="1" max="999" step="1" value="10" /></label>
+            <label><span>Transport / item</span><div class="input-with-affix"><input id="scanTransport" type="number" min="0" step="50" value="750" /><b>silver</b></div></label>
+            <label><span>Max data age</span><select id="scanFreshness"><option value="6">6 hours</option><option value="24" selected>24 hours</option><option value="72">3 days</option><option value="168">7 days</option></select></label>
+            <label><span>Sort results</span><select id="scanSort"><option value="profit">Profit / item — high</option><option value="roi">ROI — high</option><option value="bmPrice">BM price — high</option><option value="buyPrice">Buy price — low</option></select></label>
+            <button class="primary-button scan-button" id="scanLive">Scan live Asia prices</button>
+          </div>
+
+          <div class="city-filter" aria-label="Origin cities">
+            <span>BUY IN</span>
+            <label><input type="checkbox" value="Fort Sterling" checked /> Fort Sterling</label>
+            <label><input type="checkbox" value="Martlock" checked /> Martlock</label>
+            <label><input type="checkbox" value="Lymhurst" checked /> Lymhurst</label>
+            <label><input type="checkbox" value="Bridgewatch" checked /> Bridgewatch</label>
+            <label><input type="checkbox" value="Thetford" checked /> Thetford</label>
+            <label><input type="checkbox" value="Caerleon" checked /> Caerleon</label>
+          </div>
+
+          <div class="scan-status" id="scanStatus" data-state="idle">
+            <span class="status-light"></span>
+            <p><strong>Ready.</strong> Choose tiers and run a scan to load current prices.</p>
+          </div>
+
+          <div class="live-table-wrap" id="liveTableWrap" hidden>
+            <table class="results-table live-results-table">
+              <thead><tr><th>#</th><th>Verified?</th><th>Item</th><th data-sort-header="buyPrice">Cheapest origin</th><th data-sort-header="bmPrice">Current BM buy</th><th>7-day BM avg</th><th>Units</th><th>Net profit</th><th class="active-sort" data-sort-header="profit">Per item</th><th data-sort-header="roi">ROI</th><th>Origin age</th><th>BM age</th></tr></thead>
+              <tbody id="liveResultsBody"></tbody>
+            </table>
+          </div>
+          <section class="buy-checklist" id="buyChecklist" aria-labelledby="buyChecklistTitle" hidden>
+            <div class="checklist-head">
+              <div>
+                <p class="eyebrow">VERIFIED BUY LIST</p>
+                <h3 id="buyChecklistTitle">What to buy now <span id="selectedCount">0 items</span></h3>
+              </div>
+              <div class="checklist-actions">
+                <button class="checklist-button" id="copyBuyList" type="button">Copy list</button>
+                <button class="checklist-button checklist-clear" id="clearBuyList" type="button">Clear</button>
+              </div>
+            </div>
+            <div class="checklist-summary">
+              <div><small>MARKET PURCHASES</small><strong id="selectedPurchaseSpend">0 s</strong></div>
+              <div><small>CAPITAL + COSTS</small><strong id="selectedCapital">0 s</strong></div>
+              <div><small>EXPECTED NET PROFIT</small><strong id="selectedProfit">0 s</strong></div>
+              <div><small>BUDGET LEFT</small><strong id="selectedBudgetLeft">0 s</strong></div>
+            </div>
+            <p class="checklist-budget" id="selectedBudgetStatus"></p>
+            <div class="checklist-table-wrap">
+              <table class="checklist-table">
+                <thead><tr><th>Exact item</th><th>Buy in</th><th>Buy at or below</th><th>BM buy</th><th>Qty</th><th>Capital</th><th>Profit</th></tr></thead>
+                <tbody id="buyChecklistBody"></tbody>
+              </table>
+            </div>
+            <p class="checklist-note">Only tick an item after confirming the exact tier, enchantment, quality, city price, and Black Market buy price in game. A fresh scan clears this list.</p>
+          </section>
+          <p class="data-note">All five qualities are scanned automatically and the exact purchase quality is shown on each item. Origin and Black Market ages are shown separately. Every scan bypasses browser caching. Current BM price = highest observed Black Market buy order. The API does not expose current order quantity, so verify quantity in game before buying.</p>
+        </div>
+
+        <details class="manual-planner" id="manualPlanner">
+          <summary><span><b>Manual craft vs buy calculator</b><small>Use exact recipe and crafting-station prices</small></span><i>+</i></summary>
+          <div class="manual-content">
+            <div class="manual-toolbar"><p>Live scanning ranks finished-item flips. Use this calculator when you also want to compare crafting the item yourself.</p><button class="quiet-button" id="resetWorkspace">Reset T5 examples</button></div>
+            <div class="opportunity-list" id="opportunityList"></div>
+            <button class="add-card" id="addOpportunityBottom"><span>+</span> Add another item to compare</button>
+          </div>
+        </details>
+      </section>
+
+      <section class="results" aria-labelledby="resultsTitle">
+        <div class="section-heading results-heading">
+          <div>
+            <p class="eyebrow">MANUAL RESULTS</p>
+            <h2 id="resultsTitle">Craft vs buy profit board</h2>
+          </div>
+          <div class="legend"><span><i class="craft-dot"></i> Craft</span><span><i class="buy-dot"></i> Buy finished</span></div>
+        </div>
+
+        <div class="results-table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr><th>#</th><th>Item & route</th><th>Method</th><th>Net profit</th><th>Per item</th><th>ROI</th><th>Capital</th><th>Break-even BM</th><th>Budget</th></tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState" hidden>Add an opportunity to calculate your first run.</div>
+        </div>
+
+        <div class="assumption-strip">
+          <div><span>01</span><p><strong>Sale proceeds</strong>BM price minus tax.</p></div>
+          <div><span>02</span><p><strong>Required capital</strong>Acquisition + transport + risk reserve.</p></div>
+          <div><span>03</span><p><strong>Break-even</strong>BM price needed to cover all modeled costs.</p></div>
+          <div><span>04</span><p><strong>Transport</strong>Silver cost per item; time is shown as a route assumption.</p></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="opportunityTemplate">
+      <article class="opportunity-card">
+        <div class="card-head">
+          <div class="card-index">01</div>
+          <label class="item-name-field"><span>Item</span><input data-field="item" type="text" maxlength="60" /></label>
+          <label><span>Tier</span><select data-field="tier"><option>T4.0</option><option>T4.1</option><option>T4.2</option><option>T4.3</option><option>T5.0</option><option>T5.1</option><option>T5.2</option><option>T5.3</option><option>T6.0</option><option>T6.1</option><option>T7.0</option><option>T8.0</option></select></label>
+          <label><span>Quantity</span><input data-field="qty" type="number" min="1" max="9999" step="1" /></label>
+          <button class="icon-button delete-card" title="Remove opportunity" aria-label="Remove opportunity">×</button>
+        </div>
+
+        <div class="card-body">
+          <div class="input-group materials-group">
+            <div class="group-title"><span>Craft path</span><small>Total material cost per item</small></div>
+            <div class="material-lines"></div>
+            <button class="text-button add-material">+ Add material</button>
+            <label class="compact-field"><span>Station / crafting fee per item</span><div class="input-with-affix"><input data-field="craftingFee" type="number" min="0" step="1" /><b>silver</b></div></label>
+          </div>
+
+          <div class="input-group buy-group">
+            <div class="group-title"><span>Buy path</span><small>Finished item at origin</small></div>
+            <label class="large-field"><span>Finished buy price / item</span><div class="input-with-affix"><input data-field="finishedBuyPrice" type="number" min="0" step="1" /><b>silver</b></div></label>
+            <div class="route-fields">
+              <label><span>Origin city</span><select data-field="origin"><option>Fort Sterling</option><option>Martlock</option><option>Lymhurst</option><option>Bridgewatch</option><option>Thetford</option><option>Brecilien</option></select></label>
+              <label><span>Travel</span><div class="input-with-affix"><input data-field="travelMinutes" type="number" min="0" max="999" step="1" /><b>min</b></div></label>
+            </div>
+          </div>
+
+          <div class="input-group sell-group">
+            <div class="group-title"><span>Sell & transport</span><small>Caerleon Black Market</small></div>
+            <label><span>BM sell price / item</span><div class="input-with-affix"><input data-field="bmSellPrice" type="number" min="0" step="1" /><b>silver</b></div></label>
+            <label><span>Transport cost / item</span><div class="input-with-affix"><input data-field="transportPerItem" type="number" min="0" step="1" /><b>silver</b></div></label>
+          </div>
+
+          <div class="mini-comparison">
+            <div class="method-card craft-method"><span>CRAFT</span><strong data-output="craftProfit">—</strong><small data-output="craftMeta">—</small></div>
+            <div class="versus">VS</div>
+            <div class="method-card buy-method"><span>BUY FINISHED</span><strong data-output="buyProfit">—</strong><small data-output="buyMeta">—</small></div>
+          </div>
+        </div>
+        <div class="validation-message" role="alert" hidden></div>
+      </article>
+    </template>
+
+    <template id="materialTemplate">
+      <div class="material-line">
+        <input data-material="name" type="text" placeholder="Material" maxlength="40" />
+        <div class="input-with-affix"><input data-material="price" type="number" min="0" step="1" placeholder="Unit price" /><b>ea.</b></div>
+        <div class="input-with-affix"><input data-material="amount" type="number" min="0" step="0.01" placeholder="Qty / item" /><b>qty</b></div>
+        <button class="remove-material" type="button" aria-label="Remove material">×</button>
+      </div>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
